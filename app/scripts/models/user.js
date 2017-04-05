@@ -2,10 +2,13 @@ var Backbone = require('backbone');
 
 var User = Backbone.Model.extend({
   idAttribute: 'objectId',
-  urlRoot: 'https://tiny-parse-server.herokuapp.com/users/'
 });
 
+var UserCollection = Backbone.Collection.extend({
+  model: User,
+});
 
 module.exports = {
   User,
+  UserCollection
 };

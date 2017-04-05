@@ -1,23 +1,28 @@
 var Backbone = require('backbone');
 var React = require('react');
 var ReactDOM = require('react-dom');
-var LoginContainer = require('./components/login.jsx').LoginContainer;
 
+var LoginLayout = require('./components/login.jsx').LoginLayout;
+var ChatLayout = require('./components/messages.jsx').ChatLayout;
 
 var AppRouter = Backbone.Router.extend({
-  routes: {
-    '': 'index'
+  routes:{
+    "": 'index',
+    'chat/': 'chat'
   },
   index: function(){
     ReactDOM.render(
-      React.createElement(LoginContainer),
+      React.createElement(LoginLayout),
       document.getElementById('app')
-    )
-  }
+    );
+  },
+  chat: function(){
+    ReactDOM.render(
+      React.createElement(ChatLayout),
+      document.getElementById('app')
+    );
+  },
 });
-
 var appRouter = new AppRouter();
 
-module.exports = {
-  appRouter
-}
+module.exports = appRouter;

@@ -15,3 +15,45 @@ $icon-font-path: '../../node_modules/bootstrap-sass/assets/fonts/bootstrap/';
 img {
   max-width: 100%;
 }
+
+ body {
+  background-color: #8c92ac;
+}
+
+.loginjumbotron {
+  text-decoration: overline;
+  text-shadow: .5px .5px #FFFFFF;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  color: #873F0C;
+  font-style: oblique;
+}
+
+.usertitle {
+  color: #873F0C;
+}
+
+.signuptitle {
+  color: #873F0C;
+}
+
+.messagestoscreen{
+  list-style-type: circle;
+}
+
+.spacingtext {
+  padding-top: 5px;
+
+}
+
+.messagespacing {
+  margin-top: 4px;
+}
+
+.well {
+  background-color: #DDDDDD;
+}
+
+.inspirationalmessage {
+  padding-top: 50px;
+}

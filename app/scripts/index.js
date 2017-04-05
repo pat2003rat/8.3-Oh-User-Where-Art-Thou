@@ -1,7 +1,11 @@
- var $ = require('jquery');
- var Backbone = require('backbone');
- require('./router');
+var $ = require('jquery');
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Backbone = require('backbone');
 
- $(function(){
-   Backbone.history.start();
- });
+require('./utilities.js');
+require('./router.js');
+
+$(function(){
+  Backbone.history.start();
+});

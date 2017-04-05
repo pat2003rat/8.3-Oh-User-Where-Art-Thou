@@ -3,122 +3,86 @@ var React = require('react');
 var Backbone = require('backbone');
 
 var User = require('../models/user').User;
+var UserCollection = require('../models/user').UserCollection;
+var setupAjax = require('../utilities');
 var apiUrl = 'https://tiny-parse-server.herokuapp.com';
 
-class LoginContainer extends React.Component{
-  handleSignUpSubmit(e){
+
+class LoginLayout extends React.Component{
+  handleSignUp(e){
     e.preventDefault();
-    console.log('check this out');
-  var user = {
-    username: $('#signup-email').val(),
-    password: $('#signup-password').val(),
-  }
-
-  console.log(user);
-}
-
-
-
-  render(){
-
-    return(
-    <div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 text-center">
-            <h1>Parse Users</h1>
-          </div>
-        </div>
-      </div>
-
-      <div className="container">
-        <div className="row">
-          <div className="col-md-6">
-            <h1>Login</h1>
-            <LoginForm />
-            <SignUpForm />
-          </div>
-
-
-
-          </div>
-        </div>
-      </div>
-    )
-
-  }
-}
-
-class LoginForm extends React.Component{
-  render(){
-    return(
-    <form id="login">
-      <div className="form-group">
-        <label htmlFor="email-login">Email address</label>
-        <input className="form-control" name="email" id="email-login" type="email" placeholder="Email" />
-      </div>
-
-      <div className="form-group">
-        <label htmlFor="password-login">Password</label>
-        <input className="form-control" name="password" id="password-login" type="password" placeholder="Password" />
-      </div>
-
-      <input className="btn btn-primary" type="submit" value="Beam Me Up!" />
-    </form>
-  )
-  }
-}
-  var SignUpForm = React.createClass({
-    getInitialState: function(){
-      return{
-        username: '',
-        password: ''
-      }
-    },
-
-    handleSignUpSubmit: function(e){
-      e.preventDefault();
-      console.log(this.state);
-      var newUser = new User(this.state);
-      newUser.save();
-    },
-
-
-    handleEmailChange: function(e){
-      e.preventDefault();
-      this.setState({username: e.target.value})
-    },
-
-    handlePasswordChange: function(e){
-      e.preventDefault();
-      this.setState({password: e.target.value})
-    },
-
-
-    render(){
-      return (
-        <div className="col-md-6">
-          <h1>No Account? Sign Up!</h1>
-        <form onSubmit={this.handleSignUpSubmit} id="signup">
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input onChange= {this.handleEmailChange} id="signup-email" className="form-control" type="text" name="email" placeholder="Email" />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="email">Password</label>
-            <input onChange= {this.handlePasswordChange} id="signup-password" className="form-control" type="password" name="password" placeholder="Password" />
-          </div>
-
-          <input className="btn btn-primary" type="submit" value="Sign Up!" />
-        </form>
-      </div>
-      )
+    var user = {
+      username: $('#signup-email').val(),
+      password: $('#signup-password').val(),
     }
 
-});
+    console.log(user);
+    $.post(apiUrl + '/users', user).then(function(data){
+      console.log(data);
+      setupAjax(data);
+    });
+
+  }
+  handleLogin(e){
+    e.preventDefault();
+    var username = $('#email-login').val(),
+        password = $('#password-login').val();
 
 
+    var url = apiUrl + '/login?username=' +
+            encodeURIComponent(username) + '&' +
+            'password=' + encodeURIComponent(password);
+    $.get(url).then(function(data){
+      var userData = JSON.stringify(data);
+      localStorage.setItem('user', userData);
+      setupAjax(data);
+      Backbone.history.navigate('chat/', {trigger: true});
+    });
+
+  };
+  render(){
+    return(
+      <div className="container">
+          <div className="row">
+            <div className ="col-md-12 text-center loginjumbotron" >
+            <h1>Authorize Yourself</h1>
+            </div>
+              <div className="col-md-4 text-center usertitle">
+                <h1>User Login</h1>
+                <form onSubmit={this.handleLogin.bind(this)} id="login">
+                <div className="form-group">
+                  <label htmlFor="email-login">E-Mail Address</label>
+                  <input className="form-control" name="email" id="email-login" type="email" placeholder="Enter E-Mail Address Here" />
+                </div>
+                <div className="form-group">
+                  <label htmlFor="email-password">Password</label>
+                  <input id="password-login" className="form-control" type="password" name="email" placeholder="Enter Password Here" />
+                  </div>
+                  <input className="btn btn-primary" type="submit" name="" value="Log In" />
+                </form>
+              </div>
+            <div className ="col-md-4 spacing">
+              <img src="./images/messaging.png"></img>
+            </div>
+            <div className="col-md-4 text-center signuptitle">
+              <h1>Sign Up!!!</h1>
+              <form onSubmit={this.handleSignUp.bind(this)} id="signup">
+              <div className="form-group">
+                <label htmlFor=""> E-Mail Address </label>
+                <input id="signup-email" className="form-control" type="text" name="email" placeholder="Enter E-Mail Address Here" />
+              </div>
+              <div className="form-group">
+              <label htmlFor=""> Password </label>
+              <input id="signup-password" className="form-control" type="password" name="password" placeholder="Enter Password Here" />
+              </div>
+              <input className="btn btn-primary" type="submit" name="" value="Sign Up" />
+              </form>
+              </div>
+          </div>
+      </div>
+    )
+  }
+};
 module.exports = {
-  LoginContainer
-}
+  LoginLayout
+};
