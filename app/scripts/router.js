@@ -6,8 +6,8 @@ var LoginLayout = require('./components/login.jsx').LoginLayout;
 var ChatLayout = require('./components/messages.jsx').ChatLayout;
 
 var AppRouter = Backbone.Router.extend({
-  routes:{
-    "": 'index',
+  routes: {
+    '': 'index',
     'chat/': 'chat'
   },
   index: function(){

@@ -50,7 +50,7 @@ class ChatLayout extends React.Component{
             <div className ="header text-center" >
             <h1>Let Us Chat!!!</h1>
             <br></br>
-            
+
             </div>
             <form id="chat">
               <div className="form-group">
@@ -66,7 +66,7 @@ class ChatLayout extends React.Component{
              <div className="form-group col-md-2 text-center">
               <img src="./images/arrow.png"></img>
              </div>
-              <h2 className="text-center">Messages Here!!</h2>
+              <h2 className="text-center">Messages Show Up Here!!</h2>
              <div className ="text col-md-10">
               <ul className="form-group well messagingspacing">
               {chats}
