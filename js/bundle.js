@@ -143,7 +143,7 @@ class ChatLayout extends React.Component{
             React.createElement("div", {className: "header text-center"}, 
             React.createElement("h1", null, "Let Us Chat!!!"), 
             React.createElement("br", null)
-            
+
             ), 
             React.createElement("form", {id: "chat"}, 
               React.createElement("div", {className: "form-group"}, 
@@ -159,7 +159,7 @@ class ChatLayout extends React.Component{
              React.createElement("div", {className: "form-group col-md-2 text-center"}, 
               React.createElement("img", {src: "./images/arrow.png"})
              ), 
-              React.createElement("h2", {className: "text-center"}, "Messages Here!!"), 
+              React.createElement("h2", {className: "text-center"}, "Messages Show Up Here!!"), 
              React.createElement("div", {className: "text col-md-10"}, 
               React.createElement("ul", {className: "form-group well messagingspacing"}, 
               chats
